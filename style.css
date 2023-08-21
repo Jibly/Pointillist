@@ -1,0 +1,667 @@
+@font-face {
+    font-family: 'ABC';
+    src: url('font/ABCWhyteInktrapVariable.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    background: #26272B;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    align-items: start; /* Align to the top instead of centering */
+    
+ 
+}
+
+.container {
+    width: calc(40 * (2px + 2 * 9px)); /* Match the game-board width */
+    height: calc(40 * (2px + 2 * 9px)); /* Match the game-board height */
+    overflow: hidden; /* Prevent any unexpected overflows */
+    padding:0px;
+}
+
+
+#drop-area {
+    width: 100%;
+    height: 100vh;  /* Make it cover the entire viewport height */
+    border: 0px dotted #FFF;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: fixed;  /* Fix it over the entire viewport */
+    top: 0;          /* Start from the top-left corner */
+    left: 0;
+    z-index: 9999;   /* Make sure it's above other elements */
+    pointer-events: none; /* By default, don't interfere with other elements */
+    background: rgba(0, 0, 0, 0); /* Optional: Make it semi-transparent so users know something is happening when dragging */
+    transition: 0.4s;
+}
+
+#drop-area > * {
+    pointer-events: none; /* Ensure children don't block interactions */
+}
+
+#drop-area:empty::before{
+
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#game-board {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    border: 0px solid black;
+    display: grid;
+    grid-template-columns: repeat(40, 1fr); 
+    grid-template-rows: repeat(40, 1fr);
+    transition: all 0.1s;
+     box-sizing: border-box;
+
+}
+
+
+
+#game-board:empty::before {
+   
+}
+
+
+
+.dot {
+    background-color: #0528AE;
+    height: 2px;
+    width: 2px;
+    margin: 9px;
+    transition: all 0.2s;
+    border-radius: 20px;
+    box-sizing: content-box; /* Ensures that width and height settings exclude the padding and border */
+}
+
+
+#grid-size-display {
+    margin-left: 0px;
+    color: #FFF;
+}
+
+
+
+
+.snake {
+    margin: 0;
+}
+
+
+.isometric {
+    transform: rotateX(60deg) rotateZ(-45deg);
+    transition: all 1.4s;
+
+}
+#toggle-view{
+  position: fixed;
+    right:20px;
+    top:20px;
+  padding:10px;
+  border-radius:8px;
+    border:0px solid;
+    display: none;
+}
+
+
+.snake1 {
+    background-color: #0528AE; 
+    height: 2px;
+    width: 2px;
+    margin: 9px;
+}
+
+.snake2 {
+    background-color: #1C3BB9; 
+    height: 4px;
+    width: 4px;
+    margin: 8px;
+}
+
+.snake3 {
+    background-color: #3450C5; 
+    height: 6px;
+    width: 6px;
+    margin: 7px;
+}
+
+.snake4 {
+    background-color: #4C64D0;
+    height: 8px;
+    width: 8px;
+    margin: 6px;
+}
+
+.snake5 {
+    background-color: #6479DC;
+    height: 10px;
+    width: 10px;
+    margin: 5px;
+}
+
+.snake6 {
+    background-color: #7C8DE7;
+    height: 12px;
+    width: 12px;
+    margin: 4px;
+}
+
+.snake7 {
+    background-color: #94A2F2;
+    height: 14px;
+    width: 14px;
+    margin: 3px;
+}
+
+.snake8 {
+    background-color: #ACB6FD;
+    height: 16px;
+    width: 16px;
+    margin: 2px;
+}
+
+.snake9 {
+    background-color: #C5CAFF;
+    height: 18px;
+    width: 18px;
+    margin: 1px;
+}
+
+.snake10 {
+    background-color: #D7DEFF;
+    height: 20px;
+    width: 20px;
+    margin: 0px;
+}
+
+.snake11 {
+    background-color: #E9F2FF;
+    height: 22px;
+    width: 22px;
+    margin: 0px;
+}
+
+.snake12 {
+    background-color: #ACE4B5;
+    height: 23px;
+    width: 23px;
+    margin: 0px;
+}
+
+.snake13 {
+    background-color: #B9F0BC;
+    height: 24px;
+    width: 24px;
+    margin: 0px;
+}
+
+.snake14 {
+    background-color: #C6FCC3;
+    height: 25px;
+    width: 25px;
+    margin: 0px;
+}
+
+.snake15 {
+    background-color: #D0FF73;
+    height: 26px;
+    width: 26px;
+    margin: 0px;
+}
+
+
+
+.app{
+    display: flex;
+    height: 100vh;
+}
+
+
+#board-size-display{
+    float: right;
+     font-family: 'ABC', sans-serif;
+    font-size: 12px;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#grid-size-display{
+    float: right;
+     font-family: 'ABC', sans-serif;
+    font-size: 12px;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#export-btn-container{
+   
+    bottom:20px;
+}
+
+
+#export-svg-btn{
+    background-color: #3F3F46;
+    border:none;
+    padding: 10px 20px;
+    font-family: 'ABC', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: white;
+    border-radius: 6px;
+    transition: 0.8s;
+
+}
+
+#export-svg-btn:hover{
+    cursor: pointer;
+    background-color: #2D6DF6;
+    transition: 0.2s;
+     box-shadow: 0 1px 1px rgba(0,0,0,0.05), 
+              0 2px 2px rgba(0,0,0,0.05), 
+              0 4px 4px rgba(0,0,0,0.05), 
+              0 8px 8px rgba(0,0,0,0.05),
+              0 16px 16px rgba(0,0,0,0.05);
+}
+
+
+#export-png-btn{
+    background-color: #3F3F46;
+    border:none;
+    padding: 10px 20px;
+    font-family: 'ABC', sans-serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: white;
+    border-radius: 6px;
+    transition: 0.8s;
+
+}
+
+#export-png-btn:hover{
+    cursor: pointer;
+    background-color: #E44BF4;
+    transition: 0.2s;
+     box-shadow: 0 1px 1px rgba(0,0,0,0.05), 
+              0 2px 2px rgba(0,0,0,0.05), 
+              0 4px 4px rgba(0,0,0,0.05), 
+              0 8px 8px rgba(0,0,0,0.05),
+              0 16px 16px rgba(0,0,0,0.05);
+}
+
+
+label{
+    font-family: 'ABC', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-weight: 500;
+  
+}
+
+/* Styles for the track of the slider */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default styles for Webkit browsers */
+    width: 100%;
+    height: 4px;
+    background-color: #1C1D20; /* Background color for the track */
+    outline: none;
+    cursor: pointer;
+    margin: 10px 0;
+    margin-bottom: 25px;
+
+
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styles for Webkit browsers */
+    width: 16px; /* Width of the handle */
+    height: 16px; /* Height of the handle */
+    background-color: #3F3F46; /* Background color of the handle */
+    border-radius: 3px; /* Makes the handle circular */
+    cursor: pointer;
+    transition: 0.3s;
+        border: 1px solid rgba(255,255,255,0.05);
+
+        box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    background-color: #CDFB71; /* Change color on hover */
+  
+    height: 20px;
+    transition: 0.3s;
+
+
+     box-shadow: 0 0px 1px 2px rgba(208,255,113,0.95), 
+              0 1px 2px 1px rgba(208,255,113,0.35), 
+              0 1px 4px rgba(208,255,113,0.1), 
+              0 2px 8px rgba(208,255,113,0.08),
+              0 3px 12px rgba(208,255,113,0.5);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+    background-color: green;
+}
+
+
+/* You can add additional styles or modify the existing ones to better match your design */
+
+
+.theme-button{
+    border:none;
+
+     border-radius: 6px;
+     transition: 0.9s;
+     border: 0px solid rgba(155,155,155,0.1);
+     margin-right: 5px;
+     width: 20px;
+
+}
+
+.theme-button:hover{
+ opacity: 0.5;
+    transition: 0.2s;
+    cursor: pointer;
+    width: 40px;
+}
+#theme1{
+    background: linear-gradient(0deg, #070E10 50%, #D0FF73 50%);
+    width: 100%;
+    height: 50px;
+    border:0;
+     border-radius: 4px;
+}
+
+
+#theme2{
+    background: linear-gradient(0deg, #C2DDFF 50%, #0225AC 50%);
+     width: 100%;
+    height: 50px;
+    border:0;
+     border-radius: 4px;
+}
+
+#theme3{
+    background: linear-gradient(0deg, #070E10 50%, #FE5C1A 50%);
+     width: 100%;
+    height: 50px;
+    border:0;
+     border-radius: 4px;
+}
+
+#theme4{
+    background: linear-gradient(0deg, #070E10 50%, #0225AC 50%);
+     width: 100%;
+    height: 50px;
+    border:0;
+     border-radius: 4px;
+}
+
+
+#theme5{
+    background: linear-gradient(0deg, #0225AC 50%, #D0FF71 50%);
+     width: 100%;
+    height: 50px;
+    border:0;
+     border-radius: 4px;
+}
+
+
+
+
+
+.controls {
+  width: 30%;
+  border-left: 1px solid rgba(255,255,255,0.05);
+  padding:40px;
+  color: white;
+  background-color: #26272B;
+  z-index: 999;
+  position: fixed;
+  right:0;
+  height: 100vh;
+}
+
+.canvas {
+    width: 70%;
+    position: relative;
+  }
+
+
+#drag-placeholder {
+    font-family: 'ABC', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  color: #FFF; /* Change to a color that's visible against your background */
+  z-index: 1; /* Place it above the other content but below the drag area */
+  pointer-events: none; /* Make sure it doesn't interfere with dragging */
+}
+
+
+
+
+
+
+/* Hide default checkbox */
+.checkbox-style {
+    display: none;
+}
+
+
+/* Style the label that wraps the checkbox */
+.checkbox-style ~ label {
+    position: relative;
+    padding-left: 30px; /* Space for custom checkbox */
+    cursor: pointer;
+}
+
+/* Create a custom box using the ::before pseudo-element */
+.checkbox-style ~ label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3F3F46;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+/* Style for when the checkbox is checked */
+#invert-switch:checked + label::before,
+#hide-smallest-dots:checked + label::before,
+#include-background:checked + label::before {
+    background-color: #2D6DF6;
+    border-color: #2D6DF6;
+}
+
+/* For the Invert Dots checkbox */
+#invert-switch:checked + label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    font-size: 16px;
+    color: white;
+}
+
+/* For the Transparent BG checkbox */
+#include-background:checked + label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    font-size: 16px;
+    color: white;
+}
+
+/* For the smallest dots checkbox */
+#hide-smallest-dots:checked + label::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    font-size: 16px;
+    color: white;
+}
+
+#title{
+    position: fixed;
+    left:10px;
+    bottom:10px;
+    font-family: 'ABC', 'sans-serif';
+    color: white;
+    font-size: 12px;
+    background-color: #26272B;
+    padding:10px 10px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    border-radius: 6px;
+}
+
+#title img{
+    width: 40px;
+    margin-bottom: 0px;
+    float: left;
+    margin-top:-10px;
+}
+
+
+
+
+
+
+
+.flip-container {
+    perspective: 1500px;
+    width: 100%;
+    height: 100%;
+}
+
+.flipper {
+    transition: transform 0.6s cubic-bezier(0.2, 1.65, 0.5, 1);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.back {
+    transform: rotateY(180deg);
+    background: #26272B;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'ABC', sans-serif;
+}
+
+.back h2{
+        font-size: 13px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.back p{
+     font-size: 18px;
+    font-weight: 500;
+}
+
+.flip-container.flipped .flipper {
+    transform: rotateY(180deg);
+}
+
+
+#flip-btn{
+    background-color: transparent;
+    border: none;
+    float: right;
+    margin-bottom: 50px;
+    opacity: 0.4;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+#flip-btn:hover{
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#flip-btn img{
+    width: 24px;
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .app {
+    flex-direction: column-reverse;
+  }
+  .controls, .canvas {
+    width: 100%;
+  }
+  
+}
